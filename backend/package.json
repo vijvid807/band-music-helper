@@ -1,0 +1,19 @@
+{
+  "name": "band-music-backend",
+  "version": "1.0.0",
+  "description": "Band Music - Music Conversion Platform Backend",
+  "scripts": {
+    "start": "./start.sh",
+    "dev": "./start.sh",
+    "setup": "./setup.sh"
+  },
+  "keywords": [
+    "music",
+    "omr",
+    "amt",
+    "fastapi",
+    "python"
+  ],
+  "author": "",
+  "license": "MIT"
+}

@@ -1,0 +1,29 @@
+# Band Music Project
+# Root .gitignore
+
+# Documentation that should not be committed
+REFACTORING_SUMMARY.md
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.bak

@@ -1,0 +1,59 @@
+# ============================================================================
+# LEGACY REQUIREMENTS - Exact versions from original development
+# ============================================================================
+# ⚠️ WARNING: This file is for Python 3.9-3.12 ONLY
+# ⚠️ DO NOT USE with Python 3.13+ (will fail to install)
+#
+# When to use this file:
+# 1. You need EXACT same versions as original development (e.g., reproduce a bug)
+# 2. You're matching a specific production environment
+# 3. You're having issues with requirements.txt and want a known-working baseline
+#
+# For most users: Use requirements.txt instead (it's more flexible)
+#
+# Installation:
+#   pip install -r requirements-legacy-python39-312.txt
+# ============================================================================
+
+# Core dependencies
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+python-multipart==0.0.6
+pydantic==2.5.3
+pydantic-settings==2.1.0
+
+# Music Processing
+music21==9.1.0
+basic-pitch==0.3.0  # Spotify's AMT library for audio transcription
+oemer==0.1.8  # OMR library for sheet music recognition
+
+# MIDI Processing & Synthesis
+mido==1.3.2
+python-rtmidi==1.5.8
+midi2audio==0.1.1  # Python wrapper for FluidSynth
+
+# Audio Processing
+librosa==0.10.1
+soundfile==0.12.1
+pydub==0.25.1
+numpy==1.24.3
+scipy==1.11.4
+
+# Image Processing
+Pillow==10.2.0
+pdf2image==1.17.0
+opencv-python==4.9.0.80
+
+# File Handling
+aiofiles==23.2.1
+python-dotenv==1.0.0
+
+# Utilities
+loguru==0.7.2
+httpx==0.26.0
+tenacity==8.2.3
+
+# Note: Additional system dependencies required:
+# - FluidSynth (for audio synthesis): brew install fluidsynth (macOS) or apt-get install fluidsynth (Linux)
+# - LilyPond (for PDF rendering): brew install lilypond (macOS) or apt-get install lilypond (Linux)
+# - Poppler (for PDF to image): brew install poppler (macOS) or apt-get install poppler-utils (Linux)

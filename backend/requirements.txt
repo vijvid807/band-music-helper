@@ -1,0 +1,64 @@
+# ============================================================================
+# RECOMMENDED REQUIREMENTS FILE - Use this for setup
+# ============================================================================
+# This file uses version ranges (>=) that work with Python 3.9-3.12
+# pip will automatically select compatible versions for your Python version
+#
+# Why use this?
+# - Works across different Python versions (3.9, 3.10, 3.11, 3.12)
+# - Gets latest compatible versions with security patches
+# - Easier to maintain and update
+#
+# Alternative: requirements-legacy-python39-312.txt
+# - Use ONLY if you need exact same versions across all environments
+# - For reproducing bugs or matching a specific production environment
+# ============================================================================
+
+# Core dependencies
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+python-multipart==0.0.6
+pydantic==2.5.3
+pydantic-settings==2.1.0
+
+# Music Processing
+music21==9.1.0
+basic-pitch==0.3.0; python_version < "3.13"  # Spotify's AMT library (Python 3.9-3.12 only)
+# Note: oemer requires onnxruntime-gpu which isn't available on all platforms
+# Install manually if needed: pip install onnxruntime && pip install oemer --no-deps
+
+# MIDI Processing & Synthesis
+mido==1.3.2
+python-rtmidi==1.5.8
+midi2audio==0.1.1  # Python wrapper for FluidSynth
+
+# Audio Processing - relaxed versions for Python 3.13+ compatibility
+librosa>=0.10.0
+soundfile>=0.12.0
+pydub>=0.25.0
+numpy>=1.24.0,<2.0.0  # Allow newer numpy versions
+scipy>=1.11.0
+
+# Image Processing
+Pillow>=10.0.0
+pdf2image>=1.16.0
+opencv-python>=4.8.0
+
+# File Handling
+aiofiles>=23.0.0
+python-dotenv>=1.0.0
+
+# Utilities
+loguru>=0.7.0
+httpx>=0.26.0
+tenacity>=8.2.0
+
+# Note: Additional system dependencies required:
+# - FluidSynth (for audio synthesis): brew install fluidsynth (macOS) or apt-get install fluidsynth (Linux)
+# - LilyPond (for PDF rendering): brew install lilypond (macOS) or apt-get install lilypond (Linux)
+# - Poppler (for PDF to image): brew install poppler (macOS) or apt-get install poppler-utils (Linux)
+#
+# Python Version Notes:
+# - Recommended: Python 3.9-3.12 for best compatibility and pre-built wheels
+# - Python 3.13+: Packages may build from source (slower but works)
+# - Python 3.14+: Very new, expect longer build times
