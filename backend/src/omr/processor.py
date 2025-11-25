@@ -148,18 +148,20 @@ class OMRProcessor:
             logger.error("Oemer library not found.")
             raise RuntimeError("Oemer library not available. Please ensure it's installed correctly.")
         except AssertionError as e:
-            # Oemer has limitations with complex multi-staff music
+            # Oemer threw an assertion error - let it fail naturally and provide generic guidance
             logger.error(f"Oemer assertion failed: {e}")
-            error_msg = str(e)
-            if "track_nums" in str(e) or error_msg.isdigit():
-                raise RuntimeError(
-                    f"Sheet music is too complex for OMR processing (detected {error_msg} staves/tracks). "
-                    "Oemer works best with simple 1-2 staff music. Try:\n"
-                    "1. Using simpler sheet music with fewer staves\n"
-                    "2. Cropping to a single staff/instrument\n"
-                    "3. Using clearer, higher quality images"
-                )
-            raise RuntimeError(f"OMR processing failed: {str(e)}")
+            raise RuntimeError(
+                f"OMR processing failed. This could be due to:\n"
+                "1. Sheet music complexity or formatting issues\n"
+                "2. Image quality problems (blurry, low resolution, poor contrast)\n"
+                "3. Multiple pages or systems that are difficult to process\n"
+                "4. Non-standard notation or layout\n\n"
+                "Try:\n"
+                "• Using a clearer, higher resolution scan (300+ DPI)\n"
+                "• Cropping to a single page with simple 1-2 staff music\n"
+                "• Ensuring good lighting and contrast in the image\n"
+                "• Using single-instrument parts rather than full scores"
+            )
         except ValueError as e:
             # Handle specific ValueError cases from Oemer
             error_msg = str(e)
@@ -171,11 +173,13 @@ class OMRProcessor:
                 raise RuntimeError(
                     "No musical stafflines detected in the image. "
                     "This could be due to:\n"
-                    "1. Image is too blurry or low quality\n"
-                    "2. Sheet music is not clearly visible\n"
-                    "3. Image format/scan quality is poor\n"
-                    "4. Background is too noisy or has artifacts\n"
-                    "Try uploading a clearer, higher resolution image of the sheet music."
+                    "1. First page of PDF is a title/cover page without music notation\n"
+                    "2. Image is too blurry or low quality\n"
+                    "3. Sheet music is not clearly visible\n"
+                    "4. Image format/scan quality is poor\n"
+                    "5. Background is too noisy or has artifacts\n\n"
+                    "For multi-page PDFs: Try extracting just the page with music notation. "
+                    "The system currently processes only the first page."
                 )
             raise RuntimeError(f"OMR processing failed: {error_msg}. Please check the image quality.")
         except Exception as e:
