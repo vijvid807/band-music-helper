@@ -46,6 +46,12 @@ omr_pipeline = OMRPipeline()
 amt_pipeline = AMTPipeline()
 
 
+@app.get("/favicon.ico")
+async def favicon():
+    """Return 204 No Content for favicon requests."""
+    return JSONResponse(status_code=204, content={})
+
+
 @app.get("/")
 async def root():
     """Root endpoint."""

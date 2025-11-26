@@ -97,19 +97,28 @@ const AMTConverter: React.FC = () => {
           <Alert type="error" message={converter.error} />
         )}
 
-        {!converter.status && (
+        {!converter.uploading && !converter.status && (
           <button
             onClick={handleUpload}
-            disabled={!fileUpload.file || converter.uploading}
+            disabled={!fileUpload.file}
             className="btn-primary w-full"
           >
-            {converter.uploading ? '⏳ Processing...' : '📄 Convert to Sheet Music'}
+            📄 Convert to Sheet Music
           </button>
         )}
 
-        {converter.status && (
+        {(converter.uploading || converter.status) && (
           <StatusDisplay
-            status={converter.status}
+            status={converter.status || {
+              type: 'amt',
+              status: 'processing',
+              filename: fileUpload.file?.name || '',
+              progress: 5,
+              step: 'initializing',
+              upload_path: '',
+              output_path: '',
+              error: ''
+            }}
             color="purple"
             onDownload={handleDownload}
             onReset={handleReset}

@@ -45,8 +45,14 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
   return (
     <div className={`${style.bg} border ${style.border} rounded-lg p-4`}>
       <div className="flex items-center justify-between mb-2">
-        <span className={`font-medium ${style.text}`}>Status</span>
-        <span className={`text-sm ${style.textSm} capitalize`}>{status.status}</span>
+        <div className="flex items-center">
+          {status.status === 'processing' && (
+            <div className={`animate-spin rounded-full h-5 w-5 border-b-2 border-${color}-600 mr-2`}></div>
+          )}
+          <span className={`font-medium ${style.text}`}>
+            {status.status === 'processing' ? 'Processing...' : 'Status'}
+          </span>
+        </div>
       </div>
 
       {status.step && (

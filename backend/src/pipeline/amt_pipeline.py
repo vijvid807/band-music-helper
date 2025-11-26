@@ -35,17 +35,17 @@ class AMTPipeline:
             Path to generated PDF file
         """
         try:
-            # Step 1: AMT - Audio → MIDI
+            # Step 1: AMT - Audio → MIDI (takes 85% of time)
             if status_callback:
-                status_callback(job_id, {"status": "processing", "step": "transcription", "progress": 25})
+                status_callback(job_id, {"status": "processing", "step": "transcription", "progress": 10})
             
             logger.info(f"[{job_id}] Starting AMT processing")
             midi_path = self.amt.process_audio(input_path)
             logger.info(f"[{job_id}] AMT complete: {midi_path}")
             
-            # Step 2: Render MIDI → PDF directly (bypassing MusicXML to avoid formatting issues)
+            # Step 2: Render MIDI → PDF directly (takes remaining time)
             if status_callback:
-                status_callback(job_id, {"status": "processing", "step": "rendering", "progress": 75})
+                status_callback(job_id, {"status": "processing", "step": "rendering", "progress": 90})
             
             logger.info(f"[{job_id}] Rendering PDF from MIDI")
             pdf_path = self.renderer.midi_to_pdf(midi_path)

@@ -118,19 +118,28 @@ const OMRConverter: React.FC = () => {
           <Alert type="error" message={converter.error} />
         )}
 
-        {!converter.status && (
+        {!converter.uploading && !converter.status && (
           <button
             onClick={handleUpload}
-            disabled={!fileUpload.file || converter.uploading}
+            disabled={!fileUpload.file}
             className="btn-primary w-full"
           >
-            {converter.uploading ? '⏳ Processing...' : '🎵 Convert to Audio'}
+            🎵 Convert to Audio
           </button>
         )}
 
-        {converter.status && (
+        {(converter.uploading || converter.status) && (
           <StatusDisplay
-            status={converter.status}
+            status={converter.status || {
+              type: 'omr',
+              status: 'processing',
+              filename: fileUpload.file?.name || '',
+              progress: 5,
+              step: 'initializing',
+              upload_path: '',
+              output_path: '',
+              error: ''
+            }}
             color="blue"
             onDownload={handleDownload}
             onReset={handleReset}

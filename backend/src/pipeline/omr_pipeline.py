@@ -37,25 +37,25 @@ class OMRPipeline:
             Path to generated audio file
         """
         try:
-            # Step 1: OMR - Image/PDF → MusicXML
+            # Step 1: OMR - Image/PDF → MusicXML (takes 90% of time)
             if status_callback:
-                status_callback(job_id, {"status": "processing", "step": "omr", "progress": 25})
+                status_callback(job_id, {"status": "processing", "step": "omr", "progress": 10})
             
             logger.info(f"[{job_id}] Starting OMR processing")
             musicxml_path = self.omr.process_image(input_path)
             logger.info(f"[{job_id}] OMR complete: {musicxml_path}")
             
-            # Step 2: Convert MusicXML → MIDI
+            # Step 2: Convert MusicXML → MIDI (quick)
             if status_callback:
-                status_callback(job_id, {"status": "processing", "step": "conversion", "progress": 50})
+                status_callback(job_id, {"status": "processing", "step": "conversion", "progress": 92})
             
             logger.info(f"[{job_id}] Converting to MIDI")
             midi_path = self.converter.musicxml_to_midi(musicxml_path)
             logger.info(f"[{job_id}] MIDI conversion complete: {midi_path}")
             
-            # Step 3: Synthesize MIDI → Audio
+            # Step 3: Synthesize MIDI → Audio (moderately quick)
             if status_callback:
-                status_callback(job_id, {"status": "processing", "step": "synthesis", "progress": 75})
+                status_callback(job_id, {"status": "processing", "step": "synthesis", "progress": 95})
             
             logger.info(f"[{job_id}] Synthesizing audio with instrument: {instrument}")
             audio_path = self.synthesizer.midi_to_audio(midi_path, output_format="mp3", instrument=instrument)

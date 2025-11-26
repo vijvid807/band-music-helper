@@ -109,7 +109,21 @@ class OMRProcessor:
             Path to generated MusicXML file
         """
         try:
+            import gc
+            import sys
             from argparse import Namespace
+            
+            # Clear any previously loaded Oemer modules to prevent "Name already registered" errors
+            # This is a workaround for Oemer's internal state management issues
+            modules_to_reload = [m for m in sys.modules.keys() if m.startswith('oemer')]
+            for module_name in modules_to_reload:
+                if module_name in sys.modules:
+                    del sys.modules[module_name]
+            
+            # Force garbage collection before processing to clear any cached state
+            gc.collect()
+            
+            # Import Oemer fresh (after clearing)
             from oemer.ete import extract
             
             logger.info(f"Running Oemer on: {image_path}")
@@ -128,6 +142,9 @@ class OMRProcessor:
             
             # Run Oemer - returns path to MusicXML
             mxl_path = extract(args)
+            
+            # Force garbage collection after processing to clean up Oemer's internal state
+            gc.collect()
             
             # Move to our expected output path if different
             if mxl_path != str(output_path):
