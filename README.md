@@ -17,7 +17,7 @@ Convert sheet music images or PDFs into playable MP3 audio files with your choic
 **Instrument Options:** 🎹 Piano, 🎺 Trombone, 🎺 Trumpet  
 **Output:** MP3 audio file
 
-**Note:** For best results with OMR, use sheet music with 1-2 staves. Complex multi-staff scores (3+ staves) may not be processed accurately.
+**Note:** For best results with OMR, use sheet music with 1-2 staves (single line or grand staff). More complex scores with 3 or more staves may not be processed accurately.
 
 ### 🎵 Audio → Sheet Music
 Convert audio files into readable PDF sheet music scores.
